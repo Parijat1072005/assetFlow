@@ -82,7 +82,7 @@ export default function Sidebar() {
       {/* User section */}
       <div style={{ padding: "1rem", borderTop: "1px solid var(--border)" }}>
         <NavLink to="/profile" style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.625rem 0.5rem", borderRadius: "var(--radius-md)", textDecoration: "none", marginBottom: "0.5rem" }}>
-          <div style={{ width: 32, height: 32, borderRadius: "50%", background: "var(--accent-glow)", border: "1px solid var(--border-accent)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", fontWeight: 700, color: "#a5b4fc", flexShrink: 0 }}>
+          <div style={{ width: 32, height: 32, borderRadius: "50%", background: "var(--accent-glow)", border: "1px solid var(--border-accent)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", fontWeight: 700, color: "var(--accent)", flexShrink: 0 }}>
             {user?.name?.charAt(0).toUpperCase()}
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>

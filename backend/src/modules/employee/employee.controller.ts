@@ -24,3 +24,8 @@ export const promote = asyncHandler(async (req: Request, res: Response) => {
   const updated = await employeeService.promoteEmployee(req.user!.id, req.params.id, req.body.role);
   sendSuccess(res, 200, "Employee role updated", updated);
 });
+
+export const create = asyncHandler(async (req: Request, res: Response) => {
+  const newEmployee = await employeeService.createEmployee(req.user!.id, req.body);
+  sendSuccess(res, 201, "Employee created successfully", newEmployee);
+});

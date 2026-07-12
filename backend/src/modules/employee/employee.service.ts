@@ -116,3 +116,49 @@ export async function promoteEmployee(actorId: string, id: string, newRole: Role
 
   return updated;
 }
+
+import bcrypt from "bcrypt";
+
+export async function createEmployee(
+  actorId: string,
+  input: {
+    name: string;
+    email: string;
+    password?: string;
+    role: Role;
+    departmentId?: string | null;
+  }
+) {
+  const existingUser = await prisma.user.findUnique({ where: { email: input.email } });
+  if (existingUser) throw ApiError.badRequest("Email already in use");
+
+  const hashedPassword = await bcrypt.hash(input.password || "password123", 10);
+
+  const newEmployee = await prisma.user.create({
+    data: {
+      name: input.name,
+      email: input.email,
+      passwordHash: hashedPassword,
+      role: input.role,
+      departmentId: input.departmentId,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      status: true,
+      department: { select: { id: true, name: true } },
+    }
+  });
+
+  await logActivity({
+    actorId,
+    action: "EMPLOYEE_CREATED",
+    entityType: "User",
+    entityId: newEmployee.id,
+    metadata: { role: input.role },
+  });
+
+  return newEmployee;
+}

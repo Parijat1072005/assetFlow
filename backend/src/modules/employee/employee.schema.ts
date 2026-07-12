@@ -23,3 +23,11 @@ export const promoteEmployeeSchema = z.object({
 });
 
 export const idParamSchema = z.object({ id: z.string().uuid() });
+
+export const createEmployeeSchema = z.object({
+  name: z.string().min(2).max(100),
+  email: z.string().email(),
+  password: z.string().min(6),
+  role: z.enum(["EMPLOYEE", "DEPARTMENT_HEAD", "ASSET_MANAGER", "ADMIN"]),
+  departmentId: z.string().uuid().optional().nullable(),
+});

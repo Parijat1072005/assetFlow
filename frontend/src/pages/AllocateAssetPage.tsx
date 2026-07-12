@@ -116,7 +116,7 @@ export default function AllocateAssetPage() {
 
           <div>
             <label className="label">Expected Return Date (optional)</label>
-            <input className="input" type="date" name="expectedReturnDate" value={form.expectedReturnDate} onChange={handle} style={{ colorScheme: "dark" }} />
+            <input className="input" type="date" name="expectedReturnDate" value={form.expectedReturnDate} onChange={handle} style={{ colorScheme: "light" }} />
           </div>
         </div>
 

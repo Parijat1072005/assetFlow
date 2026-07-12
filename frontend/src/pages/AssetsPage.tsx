@@ -79,7 +79,7 @@ export default function AssetsPage() {
             <tbody>
               {data.map((asset: any) => (
                 <tr key={asset.id} onClick={() => navigate(`/assets/${asset.id}`)} style={{ cursor: "pointer" }}>
-                  <td><span style={{ fontFamily: "monospace", fontSize: "0.8rem", color: "#a5b4fc", fontWeight: 600 }}>{asset.assetTag}</span></td>
+                  <td><span style={{ fontFamily: "monospace", fontSize: "0.8rem", color: "var(--accent)", fontWeight: 600 }}>{asset.assetTag}</span></td>
                   <td style={{ fontWeight: 500 }}>{asset.name}</td>
                   <td style={{ color: "var(--text-secondary)" }}>{asset.category?.name || "—"}</td>
                   <td style={{ color: "var(--text-secondary)" }}>{asset.department?.name || "—"}</td>

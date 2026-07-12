@@ -223,7 +223,7 @@ export default function RegisterAssetPage() {
                 name="acquisitionDate"
                 value={form.acquisitionDate}
                 onChange={handleChange}
-                style={{ colorScheme: "dark" }}
+                style={{ colorScheme: "light" }}
               />
             </div>
             <div>

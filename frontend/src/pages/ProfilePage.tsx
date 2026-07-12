@@ -24,7 +24,7 @@ export default function ProfilePage() {
             width: 64, height: 64, borderRadius: "50%",
             background: "var(--accent-glow)", border: "2px solid var(--border-accent)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: "1.5rem", fontWeight: 800, color: "#a5b4fc"
+            fontSize: "1.5rem", fontWeight: 800, color: "var(--accent)"
           }}>
             {user?.name?.charAt(0).toUpperCase()}
           </div>
@@ -41,7 +41,7 @@ export default function ProfilePage() {
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.875rem" }}>
             <div style={{ width: 36, height: 36, background: "rgba(99,102,241,0.1)", borderRadius: "var(--radius-sm)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <User size={16} style={{ color: "#a5b4fc" }} />
+              <User size={16} style={{ color: "var(--accent)" }} />
             </div>
             <div>
               <div style={{ fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>Full Name</div>
@@ -61,7 +61,7 @@ export default function ProfilePage() {
 
           <div style={{ display: "flex", alignItems: "center", gap: "0.875rem" }}>
             <div style={{ width: 36, height: 36, background: "rgba(99,102,241,0.1)", borderRadius: "var(--radius-sm)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <Shield size={16} style={{ color: "#a5b4fc" }} />
+              <Shield size={16} style={{ color: "var(--accent)" }} />
             </div>
             <div>
               <div style={{ fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>Role</div>
@@ -84,7 +84,7 @@ export default function ProfilePage() {
       {/* Role permissions note */}
       <div style={{ marginTop: "1.25rem", padding: "1rem 1.25rem", background: "rgba(99,102,241,0.06)", border: "1px solid var(--border-accent)", borderRadius: "var(--radius-md)" }}>
         <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>
-          <strong style={{ color: "#a5b4fc" }}>Role changes</strong> must be made by an Administrator via the Employees page. Contact your system admin if you need elevated access.
+          <strong style={{ color: "var(--accent)" }}>Role changes</strong> must be made by an Administrator via the Employees page. Contact your system admin if you need elevated access.
         </p>
       </div>
     </div>

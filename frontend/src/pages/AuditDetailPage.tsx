@@ -87,7 +87,7 @@ export default function AuditDetailPage() {
           <div key={item.id} className="glass-card" style={{ padding: "1rem 1.25rem", display: "flex", alignItems: "center", gap: "1rem" }}>
             <div style={{ flex: 1 }}>
               <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
-                <span style={{ fontFamily: "monospace", fontSize: "0.78rem", color: "#a5b4fc" }}>{item.asset?.assetTag}</span>
+                <span style={{ fontFamily: "monospace", fontSize: "0.78rem", color: "var(--accent)" }}>{item.asset?.assetTag}</span>
                 <span style={{ fontWeight: 600, fontSize: "0.875rem" }}>{item.asset?.name}</span>
               </div>
               <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.2rem" }}>

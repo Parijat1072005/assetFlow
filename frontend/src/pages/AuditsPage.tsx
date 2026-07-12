@@ -128,7 +128,7 @@ export default function AuditsPage() {
             </div>
             <div>
               <label className="label">Scheduled Date</label>
-              <input className="input" type="date" value={form.scheduledDate} onChange={e => setForm(p => ({ ...p, scheduledDate: e.target.value }))} style={{ colorScheme: "dark" }} />
+              <input className="input" type="date" value={form.scheduledDate} onChange={e => setForm(p => ({ ...p, scheduledDate: e.target.value }))} style={{ colorScheme: "light" }} />
             </div>
             <div>
               <label className="label">Scope: Department (leave blank for full org)</label>

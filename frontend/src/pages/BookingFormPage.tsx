@@ -71,11 +71,11 @@ export default function BookingFormPage() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
             <div>
               <label className="label">Start Date & Time <span style={{ color: "var(--danger)" }}>*</span></label>
-              <input className="input" type="datetime-local" name="startTime" value={form.startTime} onChange={handle} required style={{ colorScheme: "dark" }} />
+              <input className="input" type="datetime-local" name="startTime" value={form.startTime} onChange={handle} required style={{ colorScheme: "light" }} />
             </div>
             <div>
               <label className="label">End Date & Time <span style={{ color: "var(--danger)" }}>*</span></label>
-              <input className="input" type="datetime-local" name="endTime" value={form.endTime} onChange={handle} required style={{ colorScheme: "dark" }} />
+              <input className="input" type="datetime-local" name="endTime" value={form.endTime} onChange={handle} required style={{ colorScheme: "light" }} />
             </div>
           </div>
 

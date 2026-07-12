@@ -57,7 +57,7 @@ export default function AssetDetailPage() {
             <span className={statusBadge(asset.status)}>{asset.status.replace("_", " ")}</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.25rem" }}>
-            <span style={{ fontFamily: "monospace", fontSize: "0.8rem", color: "#a5b4fc" }}>{asset.assetTag}</span>
+            <span style={{ fontFamily: "monospace", fontSize: "0.8rem", color: "var(--accent)" }}>{asset.assetTag}</span>
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@ export default function AssetDetailPage() {
           <InfoRow label="Condition" value={<span className={condBadge(asset.condition)}>{asset.condition}</span>} />
           <InfoRow label="Location" value={<span style={{ display: "flex", alignItems: "center", gap: 4 }}><MapPin size={12} />{asset.location}</span>} />
           <InfoRow label="Serial Number" value={<span style={{ fontFamily: "monospace", fontSize: "0.8rem" }}>{asset.serialNumber}</span>} />
-          <InfoRow label="QR Code" value={<span style={{ fontFamily: "monospace", fontSize: "0.8rem", color: "#a5b4fc" }}>{asset.qrCode}</span>} />
+          <InfoRow label="QR Code" value={<span style={{ fontFamily: "monospace", fontSize: "0.8rem", color: "var(--accent)" }}>{asset.qrCode}</span>} />
           <InfoRow label="Acquisition Date" value={asset.acquisitionDate ? new Date(asset.acquisitionDate).toLocaleDateString() : null} />
           <InfoRow label="Acquisition Cost" value={asset.acquisitionCost ? `₹${Number(asset.acquisitionCost).toLocaleString()}` : null} />
           <InfoRow label="Bookable" value={asset.isBookable ? <span className="badge badge-green">Yes</span> : <span className="badge badge-gray">No</span>} />

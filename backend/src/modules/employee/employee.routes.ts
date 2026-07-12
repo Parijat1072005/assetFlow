@@ -6,6 +6,7 @@ import {
   listEmployeesQuerySchema,
   updateEmployeeSchema,
   promoteEmployeeSchema,
+  createEmployeeSchema,
   idParamSchema,
 } from "./employee.schema";
 import * as controller from "./employee.controller";
@@ -18,6 +19,13 @@ router.get("/", validate(listEmployeesQuerySchema, "query"), controller.list);
 router.get("/:id", validate(idParamSchema, "params"), controller.getOne);
 
 // Only Admin manages the directory (Screen 3, Tab C).
+router.post(
+  "/",
+  requireRole("ADMIN"),
+  validate(createEmployeeSchema),
+  controller.create
+);
+
 router.patch(
   "/:id",
   requireRole("ADMIN"),

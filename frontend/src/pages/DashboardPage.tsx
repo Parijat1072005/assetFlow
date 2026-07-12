@@ -71,7 +71,7 @@ export default function DashboardPage() {
         </div>
       ) : (
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
-          <KpiCard label="Total Assets"       value={stats?.totalAssets || 0}        icon={Package}        color="#a5b4fc" />
+          <KpiCard label="Total Assets"       value={stats?.totalAssets || 0}        icon={Package}        color="var(--accent)" />
           <KpiCard label="Available"          value={stats?.availableAssets || 0}    icon={CheckCircle}    color="#10b981" />
           <KpiCard label="Allocated"          value={stats?.allocatedAssets || 0}    icon={TrendingUp}     color="#f59e0b" />
           <KpiCard label="Under Maintenance"  value={stats?.maintenanceAssets || 0}  icon={Wrench}         color="#ef4444" />

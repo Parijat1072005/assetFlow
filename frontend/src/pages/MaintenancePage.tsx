@@ -60,7 +60,7 @@ export default function MaintenancePage() {
                 {byStatus[status].map((item: any) => (
                   <div key={item.id} className="glass-card" style={{ padding: "1rem", cursor: "pointer" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-                      <span style={{ fontSize: "0.75rem", fontFamily: "monospace", color: "#a5b4fc" }}>
+                      <span style={{ fontSize: "0.75rem", fontFamily: "monospace", color: "var(--accent)" }}>
                         {item.asset?.assetTag}
                       </span>
                       <span className={`badge ${PRIORITY_BADGE[item.priority]}`}>{item.priority}</span>

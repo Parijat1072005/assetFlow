@@ -85,7 +85,7 @@ export default function DepartmentsPage() {
                   background: "var(--accent-glow)", border: "1px solid var(--border-accent)",
                   display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
                 }}>
-                  <Building2 size={18} style={{ color: "#a5b4fc" }} />
+                  <Building2 size={18} style={{ color: "var(--accent)" }} />
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontWeight: 700, fontSize: "0.95rem", marginBottom: "0.25rem" }}>{d.name}</div>
