@@ -27,7 +27,7 @@ export default function AuditsPage() {
   const canStart = user?.role === "ADMIN" || user?.role === "ASSET_MANAGER";
 
   const [showModal, setShowModal] = useState(false);
-  const [form, setForm] = useState({ title: "", scheduledDate: "", departmentId: "" });
+  const [form, setForm] = useState({ name: "", startDate: "", endDate: "", departmentId: "", auditorIds: [] as string[] });
   const [loading, setLoading] = useState(false);
 
   const { data: cycles = [], isLoading } = useQuery({
@@ -40,14 +40,21 @@ export default function AuditsPage() {
     queryFn: () => api.get("/departments").then(r => r.data.data),
   });
 
+  const { data: employees = [] } = useQuery({
+    queryKey: ["employees-auditors"],
+    queryFn: () => api.get("/employees").then(r => r.data.data),
+  });
+
   const startCycle = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const payload: any = {
-        title: form.title,
-        scheduledDate: form.scheduledDate ? new Date(form.scheduledDate).toISOString() : undefined,
+      const payload = {
+        name: form.name,
+        startDate: form.startDate ? new Date(form.startDate).toISOString() : new Date().toISOString(),
+        endDate: form.endDate ? new Date(form.endDate).toISOString() : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
         departmentId: form.departmentId || undefined,
+        auditorIds: form.auditorIds.length > 0 ? form.auditorIds : [user?.id], // default to self if none selected
       };
       const res = await api.post("/audits", payload);
       toast.success("Audit cycle started!");
@@ -97,7 +104,7 @@ export default function AuditsPage() {
             return (
               <div key={c.id} className="glass-card" style={{ padding: "1.25rem", cursor: "pointer" }} onClick={() => navigate(`/audits/${c.id}`)}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.875rem" }}>
-                  <span style={{ fontWeight: 700, fontSize: "0.95rem" }}>{c.title}</span>
+                  <span style={{ fontWeight: 700, fontSize: "0.95rem" }}>{c.name}</span>
                   <span style={{ fontSize: "0.72rem", fontWeight: 600, color, background: `${color}18`, border: `1px solid ${color}44`, borderRadius: 999, padding: "2px 8px" }}>{c.status}</span>
                 </div>
                 {c.department && <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", marginBottom: "0.625rem" }}>Dept: {c.department.name}</div>}
@@ -123,12 +130,18 @@ export default function AuditsPage() {
         <Modal onClose={() => setShowModal(false)}>
           <form onSubmit={startCycle} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             <div>
-              <label className="label">Cycle Title <span style={{ color: "var(--danger)" }}>*</span></label>
-              <input className="input" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} placeholder="e.g. Q3 2026 Audit" required />
+              <label className="label">Cycle Name <span style={{ color: "var(--danger)" }}>*</span></label>
+              <input className="input" value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} placeholder="e.g. Q3 2026 Audit" required />
             </div>
-            <div>
-              <label className="label">Scheduled Date</label>
-              <input className="input" type="date" value={form.scheduledDate} onChange={e => setForm(p => ({ ...p, scheduledDate: e.target.value }))} style={{ colorScheme: "light" }} />
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div>
+                <label className="label">Start Date</label>
+                <input required className="input" type="date" value={form.startDate} onChange={e => setForm(p => ({ ...p, startDate: e.target.value }))} style={{ colorScheme: "light" }} />
+              </div>
+              <div>
+                <label className="label">End Date</label>
+                <input required className="input" type="date" value={form.endDate} onChange={e => setForm(p => ({ ...p, endDate: e.target.value }))} style={{ colorScheme: "light" }} />
+              </div>
             </div>
             <div>
               <label className="label">Scope: Department (leave blank for full org)</label>
@@ -136,6 +149,18 @@ export default function AuditsPage() {
                 <option value="">— All departments —</option>
                 {departments.map((d: any) => <option key={d.id} value={d.id}>{d.name}</option>)}
               </select>
+            </div>
+            <div>
+              <label className="label">Assign Auditors <span style={{ color: "var(--danger)" }}>*</span></label>
+              <select multiple required className="select" style={{ height: "80px", padding: "0.25rem" }} 
+                value={form.auditorIds} 
+                onChange={e => {
+                  const options = Array.from(e.target.selectedOptions, option => option.value);
+                  setForm(p => ({ ...p, auditorIds: options }));
+                }}>
+                {employees.map((emp: any) => <option key={emp.id} value={emp.id} style={{ padding: "4px 8px" }}>{emp.name} ({emp.email})</option>)}
+              </select>
+              <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "4px" }}>Hold Ctrl/Cmd to select multiple</p>
             </div>
             <div style={{ display: "flex", gap: "0.75rem", marginTop: "0.25rem" }}>
               <button type="submit" className="btn-primary" disabled={loading} style={{ flex: 1, justifyContent: "center" }}>{loading ? "Starting..." : "Start Cycle"}</button>

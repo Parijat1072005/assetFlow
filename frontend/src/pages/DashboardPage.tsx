@@ -6,6 +6,7 @@ import {
   Package, CheckCircle, Wrench, AlertTriangle,
   Calendar, TrendingUp, Clock
 } from "lucide-react";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from "recharts";
 
 interface DashboardStats {
   totalAssets: number;
@@ -80,10 +81,53 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* Quick Links */}
+      {/* Charts & Quick Links */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-        <QuickPanel title="Recent Allocations" linkTo="/allocations" />
-        <QuickPanel title="Pending Maintenance" linkTo="/maintenance" />
+        
+        {/* Real-time Graph Panel */}
+        <div className="glass-card" style={{ padding: "1.25rem", display: "flex", flexDirection: "column" }}>
+          <h3 style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: "1rem" }}>Asset Status Distribution</h3>
+          {isLoading || !stats ? (
+             <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)", animation: "pulse 1.5s infinite" }}>Loading graph...</div>
+          ) : (
+            <div style={{ height: 220, width: "100%" }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={[
+                      { name: "Available", value: stats.availableAssets, color: "#10b981" },
+                      { name: "Allocated", value: stats.allocatedAssets, color: "#f59e0b" },
+                      { name: "Maintenance", value: stats.maintenanceAssets, color: "#ef4444" }
+                    ]}
+                    cx="50%" cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    { [
+                      { name: "Available", value: stats.availableAssets, color: "#10b981" },
+                      { name: "Allocated", value: stats.allocatedAssets, color: "#f59e0b" },
+                      { name: "Maintenance", value: stats.maintenanceAssets, color: "#ef4444" }
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} stroke="rgba(255,255,255,0.1)" strokeWidth={2} />
+                    ))}
+                  </Pie>
+                  <RechartsTooltip 
+                    contentStyle={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "8px", boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)" }}
+                    itemStyle={{ color: "var(--text-primary)" }}
+                  />
+                  <Legend verticalAlign="bottom" height={36} iconType="circle" />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <QuickPanel title="Recent Allocations" linkTo="/allocations" />
+          <QuickPanel title="Pending Maintenance" linkTo="/maintenance" />
+        </div>
       </div>
     </div>
   );
