@@ -18,8 +18,6 @@ function Modal({ title, onClose, children }: { title: string; onClose: () => voi
   );
 }
 
-const FIELD_TYPES = ["text", "number", "date", "boolean", "select"];
-
 export default function CategoriesPage() {
   const qc = useQueryClient();
   const [showModal, setShowModal] = useState(false);

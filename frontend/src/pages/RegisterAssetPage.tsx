@@ -13,12 +13,14 @@ export default function RegisterAssetPage() {
   const [form, setForm] = useState({
     name: "",
     categoryId: "",
+    newCategoryName: "",
     serialNumber: "",
     acquisitionDate: "",
     acquisitionCost: "",
     condition: "GOOD",
     location: "",
     departmentId: "",
+    newDepartmentName: "",
     isBookable: false,
   });
   const [loading, setLoading] = useState(false);
@@ -47,9 +49,21 @@ export default function RegisterAssetPage() {
     e.preventDefault();
     setLoading(true);
     try {
+      let finalCategoryId = form.categoryId;
+      if (form.categoryId === "NEW") {
+        const catRes = await api.post("/categories", { name: form.newCategoryName });
+        finalCategoryId = catRes.data.data.id;
+      }
+
+      let finalDeptId = form.departmentId;
+      if (form.departmentId === "NEW") {
+        const deptRes = await api.post("/departments", { name: form.newDepartmentName });
+        finalDeptId = deptRes.data.data.id;
+      }
+
       const payload: Record<string, any> = {
         name: form.name,
-        categoryId: form.categoryId,
+        categoryId: finalCategoryId,
         condition: form.condition,
         isBookable: form.isBookable,
       };
@@ -57,7 +71,7 @@ export default function RegisterAssetPage() {
       if (form.acquisitionDate)  payload.acquisitionDate  = new Date(form.acquisitionDate).toISOString();
       if (form.acquisitionCost)  payload.acquisitionCost  = parseFloat(form.acquisitionCost);
       if (form.location)         payload.location         = form.location;
-      if (form.departmentId)     payload.departmentId     = form.departmentId;
+      if (finalDeptId && finalDeptId !== "NEW") payload.departmentId = finalDeptId;
 
       await api.post("/assets", payload);
       toast.success("Asset registered successfully!");
@@ -122,12 +136,18 @@ export default function RegisterAssetPage() {
               {categories.map((c: any) => (
                 <option key={c.id} value={c.id}>{c.name}</option>
               ))}
+              <option value="NEW">+ Add New Category</option>
             </select>
-            {categories.length === 0 && (
-              <p style={{ fontSize: "0.75rem", color: "var(--warning)", marginTop: "0.35rem" }}>
-                No categories yet.{" "}
-                <a href="/categories" style={{ color: "var(--accent)" }}>Create one first →</a>
-              </p>
+            {form.categoryId === "NEW" && (
+              <input
+                className="input"
+                style={{ marginTop: "0.5rem" }}
+                name="newCategoryName"
+                value={form.newCategoryName}
+                onChange={handleChange}
+                placeholder="Enter new category name..."
+                required
+              />
             )}
           </div>
 
@@ -144,7 +164,19 @@ export default function RegisterAssetPage() {
               {departments.map((d: any) => (
                 <option key={d.id} value={d.id}>{d.name}</option>
               ))}
+              <option value="NEW">+ Add New Department</option>
             </select>
+            {form.departmentId === "NEW" && (
+              <input
+                className="input"
+                style={{ marginTop: "0.5rem" }}
+                name="newDepartmentName"
+                value={form.newDepartmentName}
+                onChange={handleChange}
+                placeholder="Enter new department name..."
+                required
+              />
+            )}
           </div>
 
           {/* Serial Number */}

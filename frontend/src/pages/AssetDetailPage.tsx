@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import api from "../lib/api";
-import { ArrowLeft, Package, MapPin, Calendar, DollarSign, QrCode, Wrench, ClipboardList, History } from "lucide-react";
+import { ArrowLeft, MapPin, Calendar, Wrench, ClipboardList, History } from "lucide-react";
 
 function statusBadge(s: string) {
   const m: Record<string, string> = { AVAILABLE: "badge-green", ALLOCATED: "badge-yellow", UNDER_MAINTENANCE: "badge-red", RESERVED: "badge-blue", LOST: "badge-red", RETIRED: "badge-gray", DISPOSED: "badge-gray" };
@@ -56,7 +56,7 @@ export default function AssetDetailPage() {
             <h1 style={{ fontSize: "1.4rem", fontWeight: 800 }}>{asset.name}</h1>
             <span className={statusBadge(asset.status)}>{asset.status.replace("_", " ")}</span>
           </div>
-          <div style={{ display: "flex", align: "center", gap: "0.5rem", marginTop: "0.25rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.25rem" }}>
             <span style={{ fontFamily: "monospace", fontSize: "0.8rem", color: "#a5b4fc" }}>{asset.assetTag}</span>
           </div>
         </div>

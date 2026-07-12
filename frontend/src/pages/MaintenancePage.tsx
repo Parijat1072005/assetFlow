@@ -1,15 +1,8 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import api from "../lib/api";
-import { Wrench } from "lucide-react";
 
 const PRIORITY_BADGE: Record<string, string> = {
   LOW: "badge-gray", MEDIUM: "badge-blue", HIGH: "badge-yellow", CRITICAL: "badge-red"
-};
-
-const STATUS_BADGE: Record<string, string> = {
-  PENDING: "badge-yellow", APPROVED: "badge-blue", REJECTED: "badge-red",
-  TECHNICIAN_ASSIGNED: "badge-purple", IN_PROGRESS: "badge-blue", RESOLVED: "badge-green",
 };
 
 const COLUMNS = ["PENDING", "APPROVED", "TECHNICIAN_ASSIGNED", "IN_PROGRESS", "RESOLVED"];

@@ -1,8 +1,7 @@
-import React from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import api from "../lib/api";
-import { Bell, Check, CheckCheck, Package, Wrench, Calendar, AlertTriangle, Info } from "lucide-react";
+import { Bell, CheckCheck, Package, Wrench, Calendar, AlertTriangle, Info } from "lucide-react";
 
 const TYPE_ICON: Record<string, any> = {
   OVERDUE_RETURN: AlertTriangle,

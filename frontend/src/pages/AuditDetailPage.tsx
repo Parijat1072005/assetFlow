@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
@@ -15,11 +15,6 @@ export default function AuditDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const qc = useQueryClient();
-
-  const { data: cycle, isLoading: cycleLoading } = useQuery({
-    queryKey: ["audit-cycle", id],
-    queryFn: () => api.get(`/audits/${id}/items`).then(r => r.data),
-  });
 
   const { data: items = [], isLoading: itemsLoading } = useQuery({
     queryKey: ["audit-items", id],

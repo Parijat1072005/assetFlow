@@ -1,6 +1,6 @@
-import React from "react";
+
 import { useAuth } from "../context/AuthContext";
-import { Shield, Mail, Building2, Key, User } from "lucide-react";
+import { Shield, Mail, Key, User } from "lucide-react";
 
 const ROLE_BADGE: Record<string, string> = {
   EMPLOYEE: "badge-gray", DEPARTMENT_HEAD: "badge-blue",
