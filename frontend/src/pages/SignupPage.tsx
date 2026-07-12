@@ -23,8 +23,8 @@ export default function SignupPage() {
       return;
     }
 
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
       return;
     }
 
@@ -33,7 +33,15 @@ export default function SignupPage() {
       await api.post("/auth/signup", { name, email, password });
       navigate("/login?registered=1");
     } catch (err: any) {
-      setError(err?.response?.data?.message || "Signup failed. Please try again.");
+      let errMsg = err?.response?.data?.message || "Signup failed. Please try again.";
+      const fieldErrors = err?.response?.data?.details?.fieldErrors;
+      if (fieldErrors) {
+        const firstErrorKey = Object.keys(fieldErrors)[0];
+        if (firstErrorKey && fieldErrors[firstErrorKey].length > 0) {
+          errMsg = fieldErrors[firstErrorKey][0];
+        }
+      }
+      setError(errMsg);
     } finally {
       setLoading(false);
     }
@@ -128,7 +136,7 @@ export default function SignupPage() {
                   id="password"
                   type={showPass ? "text" : "password"}
                   className="input"
-                  placeholder="Min. 8 characters"
+                  placeholder="Min. 6 characters"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   required
